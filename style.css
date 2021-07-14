@@ -1,0 +1,7 @@
+#criar-tarefa:hover {
+  background-color: aqua;
+}
+
+.selected {
+  background-color: gray;
+}
