@@ -1,6 +1,7 @@
 const createButton = document.getElementById('criar-tarefa');
 const itens = document.getElementById('lista-tarefas');
 const deleteItens = document.getElementById('apaga-tudo');
+const cleanList = document.getElementById('remover-finalizados');
 
 function addItemList(item) {
   const li = document.createElement('li');
@@ -43,4 +44,18 @@ function removeAllItens() {
 
 deleteItens.addEventListener('click', () => {
   removeAllItens();
+});
+
+function removeFinishedItens() {
+  const list = itens.childNodes;
+  for (let i = 0; i < list.length; i += 1) {
+    if (list[i].classList.contains('completed')) {
+      list[i].remove();
+    }
+  }
+}
+
+cleanList.addEventListener('click', () => {
+  removeFinishedItens();
+  removeFinishedItens();
 });
