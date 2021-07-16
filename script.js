@@ -1,5 +1,6 @@
 const createButton = document.getElementById('criar-tarefa');
 const itens = document.getElementById('lista-tarefas');
+const deleteItens = document.getElementById('apaga-tudo');
 
 function addItemList(item) {
   const li = document.createElement('li');
@@ -33,4 +34,13 @@ itens.addEventListener('dblclick', (item) => {
   } else {
     itemList.classList.add('completed');
   }
+});
+
+function removeAllItens() {
+  const list = document.querySelector('#lista-tarefas');
+  list.innerHTML = '';
+}
+
+deleteItens.addEventListener('click', () => {
+  removeAllItens();
 });
