@@ -84,7 +84,7 @@ function moveUp() {
       const up = itensList[index].innerText;
       const down = itensList[index - 1].innerText;
 
-      itensList[index- 1].innerText = up;
+      itensList[index - 1].innerText = up;
       itensList[index - 1].classList.add('selected');
 
       itensList[index].innerText = down;
@@ -104,7 +104,7 @@ function moveDown() {
       const up = itensList[index + 1].innerText;
 
       itensList[index + 1].innerText = down;
-      itensList[index+ 1].classList.add('selected');
+      itensList[index + 1].classList.add('selected');
 
       itensList[index].innerText = up;
       itensList[index].classList.remove('selected');
