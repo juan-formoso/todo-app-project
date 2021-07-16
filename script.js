@@ -25,3 +25,12 @@ itens.addEventListener('click', (item) => {
   removeSelectedItem();
   itemList.classList.add('selected');
 });
+
+itens.addEventListener('dblclick', (item) => {
+  const itemList = item.target;
+  if (itemList.classList.contains('completed')) {
+    itemList.classList.remove('completed');
+  } else {
+    itemList.classList.add('completed');
+  }
+});
