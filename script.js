@@ -2,6 +2,7 @@ const createButton = document.getElementById('criar-tarefa');
 const itens = document.getElementById('lista-tarefas');
 const deleteItens = document.getElementById('apaga-tudo');
 const cleanList = document.getElementById('remover-finalizados');
+const saveList = document.getElementById('salvar-tarefas');
 
 function addItemList(item) {
   const li = document.createElement('li');
@@ -59,3 +60,16 @@ cleanList.addEventListener('click', () => {
   removeFinishedItens();
   removeFinishedItens();
 });
+
+function storeList() {
+  const lis = document.querySelector('ol').innerHTML;
+  localStorage.setItem('save', lis);
+}
+function load() {
+  if (localStorage.save !== undefined) {
+    document.querySelector('ol').innerHTML = localStorage.save;
+  }
+}
+
+window.onload = load;
+saveList.addEventListener('click', storeList)
