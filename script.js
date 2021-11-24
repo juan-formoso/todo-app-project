@@ -1,123 +1,64 @@
-const createButton = document.getElementById('criar-tarefa');
-const itens = document.getElementById('lista-tarefas');
-const deleteItens = document.getElementById('apaga-tudo');
-const cleanList = document.getElementById('remover-finalizados');
-const saveList = document.getElementById('salvar-tarefas');
-const moveToDownside = document.getElementById('mover-baixo');
-const moveToUpside = document.getElementById('mover-cima');
-const removeItem = document.getElementById('remover-selecionado');
+const inputBox = document.querySelector(".inputField input");
+const addBtn = document.querySelector(".inputField button");
+const todoList = document.querySelector(".todoList");
+const deleteAllBtn = document.querySelector(".footer button");
 
-function addItemList(item) {
-  const li = document.createElement('li');
-  li.innerText = item;
-  itens.appendChild(li);
-}
-
-createButton.addEventListener('click', () => {
-  const input = document.getElementById('texto-tarefa');
-  addItemList(input.value);
-  input.value = '';
-});
-
-function removeSelectedItem() {
-  const selectedItem = document.querySelector('.selected');
-  if (selectedItem != null) {
-    selectedItem.classList.remove('selected');
-  }
-}
-
-itens.addEventListener('click', (item) => {
-  const itemList = item.target;
-  removeSelectedItem();
-  itemList.classList.add('selected');
-});
-
-itens.addEventListener('dblclick', (item) => {
-  const itemList = item.target;
-  if (itemList.classList.contains('completed')) {
-    itemList.classList.remove('completed');
+inputBox.onkeyup = () => {
+  let userData = inputBox.value;
+  if (userData.trim() != 0) {
+    addBtn.classList.add("active");
   } else {
-    itemList.classList.add('completed');
-  }
-});
-
-function removeAllItens() {
-  const list = document.querySelector('#lista-tarefas');
-  list.innerHTML = '';
-}
-
-deleteItens.addEventListener('click', () => {
-  removeAllItens();
-});
-
-function removeFinishedItens() {
-  const list = itens.childNodes;
-  for (let index = 0; index < list.length; index += 1) {
-    if (list[index].classList.contains('completed')) {
-      list[index].remove();
-    }
+    addBtn.classList.remove("active");
   }
 }
+showTasks();
 
-cleanList.addEventListener('click', () => {
-  removeFinishedItens();
-  removeFinishedItens();
-});
-
-function storeList() {
-  const lis = document.querySelector('ol').innerHTML;
-  localStorage.setItem('save', lis);
-}
-function load() {
-  if (localStorage.save !== undefined) {
-    document.querySelector('ol').innerHTML = localStorage.save;
+addBtn.onclick = () => {
+  let userData = inputBox.value;
+  let getToLocalStorage = localStorage.getItem("New Todo");
+  if(getToLocalStorage == null) {
+    listArr = [];
+  } else {
+    listArr = JSON.parse(getToLocalStorage);
   }
+  listArr.push(userData);
+  localStorage.setItem("New Todo", JSON.stringify(listArr));
+  showTasks();
+  addBtn.classList.remove("active");
 }
 
-window.onload = load;
-saveList.addEventListener('click', storeList);
-
-function moveUp() {
-  const itensList = itens.childNodes;
-  for (let index = 1; index < itensList.length; index += 1) {
-    if (itensList[index].classList.contains('selected')) {
-      const up = itensList[index].innerText;
-      const down = itensList[index - 1].innerText;
-
-      itensList[index - 1].innerText = up;
-      itensList[index - 1].classList.add('selected');
-
-      itensList[index].innerText = down;
-      itensList[index].classList.remove('selected');
-      break;
-    }
+function showTasks() {
+  let getToLocalStorage = localStorage.getItem("New Todo");
+  if(getToLocalStorage == null) {
+    listArr = [];
+  } else {
+    listArr = JSON.parse(getToLocalStorage);
   }
-}
-
-moveToUpside.addEventListener('click', moveUp);
-
-function moveDown() {
-  const itensList = itens.childNodes;
-  for (let index = 0; index < itensList.length - 1; index += 1) {
-    if (itensList[index].classList.contains('selected')) {
-      const down = itensList[index].innerText;
-      const up = itensList[index + 1].innerText;
-
-      itensList[index + 1].innerText = down;
-      itensList[index + 1].classList.add('selected');
-
-      itensList[index].innerText = up;
-      itensList[index].classList.remove('selected');
-      break;
-    }
+  const pendingNumb = document.querySelector(".pendingNumb");
+  pendingNumb.textContent = listArr.length;
+  if(listArr.length > 0) {
+    deleteAllBtn.classList.add("active");
+  } else {
+    deleteAllBtn.classList.remove("active");
   }
+  let newLiTag = '';
+  listArr.forEach((element, i) => {
+    newLiTag += `<li> ${element} <span onclick="deleteTask(${i})"; ><i class="fas fa-trash"></i></span></li>`;
+  });
+  todoList.innerHTML = newLiTag;
+  inputBox.value = "";
 }
 
-moveToDownside.addEventListener('click', moveDown);
-
-function removeTask() {
-  const selectedTask = document.querySelector('.selected');
-  selectedTask.remove();
+function deleteTask(i) {
+  let getToLocalStorage = localStorage.getItem("New Todo");
+  listArr = JSON.parse(getToLocalStorage);
+  listArr.splice(i, 1);
+  localStorage.setItem("New Todo", JSON.stringify(listArr));
+  showTasks();
 }
 
-removeItem.addEventListener('click', removeTask);
+deleteAllBtn.onclick = () => {
+  listArr = [];
+  localStorage.setItem("New Todo", JSON.stringify(listArr));
+  showTasks();
+}

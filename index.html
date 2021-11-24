@@ -5,22 +5,22 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
-  <title>Task List</title>
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  <title>Todo List</title>
 </head>
 <body>
-    <header>
-      <h1>Minha Lista de Tarefas</h1>
-    </header>
-    <p id="funcionamento">Clique duas vezes em um item para marcá-lo como completo</p>
-    <input id="texto-tarefa" type="text" placeholder="Digite aqui sua tarefa">
-    <button id="criar-tarefa">Criar</button>
-    <ol id="lista-tarefas"></ol>
-    <button id="apaga-tudo">Apagar tudo</button>
-    <button id="remover-finalizados">Limpar lista</button>
-    <button id="salvar-tarefas">Salvar</button>
-    <button id="mover-cima">Mover Item para cima</button>
-    <button id="mover-baixo">Mover Item para baixo</button>
-    <button id="remover-selecionado">Remover Item</button>
+  <div class="wrapper">
+    <header>Todo App</header>
+    <div class="inputField">
+      <input type="text" placeholder="Add your new todo">
+      <button><i class="fas fa-plus"></i></button>
+    </div>
+    <ul class="todoList"></ul>
+    <div class="footer">
+      <span>You have <span class="pendingNumb"></span> pending tasks</span>
+      <button>Clear All</button>
+    </div>
+  </div>
   <script src="script.js"></script>
 </body>
 </html>
