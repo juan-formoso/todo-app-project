@@ -20,13 +20,6 @@ Desenvolvido usando:
   * `git clone git@github.com:juan-formoso/todo-app-project.git`.
   * Entre na pasta do repositório clonado:
     * `cd todo-app-project`
-
-## Instalando Dependências
-
-```bash
-npm install
-``` 
-
 ## Executando aplicação
 
   > Instale a extensão 'Live Server' no seu VS Code
